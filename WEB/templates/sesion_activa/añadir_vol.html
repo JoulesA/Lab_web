@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block  Titulo %} Nuevo Voluntario {% endblock %}
+
+{% block  Contenido %} 
+<div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+  <h1 class="display-4 fw-normal">Voluntario Nuevo</h1>
+  <div class="d-flex flex-wrap align-items-center justify-content-center ">
+  </div>
+</div>
+
+
+<!-- Form -->
+<div class="container mt-5">
+  <form method="post" action="">
+      {% csrf_token %}
+      <div class="row">
+
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" required>
+          </div>
+          <div class="mb-3">
+            <label for="apellido" class="form-label">Apellido</label>
+            <input type="text" class="form-control" id="apellido" name="apellido" required>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="nacimiento" class="form-label">Fecha de nacimiento</label>
+            <input type="date" class="form-control" id="nacimiento" name="nacimiento" required>
+          </div>
+          <div class="mb-3">
+            <label for="genero" class="form-label">Género</label>
+            <select class="form-select" id="genero" name="genero" required>
+              <option value="H">Hombre</option>
+              <option value="M">Mujer</option>
+              <option value="I">Prefiere no especificar</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="mb-3">
+          <label for="observaciones" class="form-label">Observaciones</label>
+          <textarea class="form-control" id="observaciones" name="observaciones" rows="3"></textarea>
+      </div>
+      <a href="{% url 'voluntarios' %}" class="btn btn-outline-danger btn-sm px-4">Cancelar</a>
+      <button class="btn btn-outline-success px-4 btn-sm d-inline-flex" type="submit">Guardar</button>
+  </form>
+</div>
+
+{% endblock %}

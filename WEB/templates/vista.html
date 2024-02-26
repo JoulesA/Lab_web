@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block  Titulo %} Proyecto {% endblock %}
+
+{% block  Contenido %} 
+<section class="container mt-5 border-bottom">
+  <h1>{{proyecto.nombre}}</h1>
+  <strong> {{proyecto.autor}} </strong>
+</section>
+
+<section class="container mt-5 border-bottom">
+  <h4>Abstract</h4>
+  <p>{{proyecto.descripcion}}</p>
+</section>
+<section class="container mt-5">
+  <h4>Datos tecnicos</h4>
+  <p>Tipo de señal: {{proyecto.signalType}}</p>
+    <p>Frecuencia de muestreo: {{proyecto.sampleRate}} Hz</p>
+    <p>Ganancia: {{proyecto.ganancia}}</p>
+    <p>Duración de cada grabación: {{proyecto.time}} s</p>
+</section>
+
+{% endblock %}

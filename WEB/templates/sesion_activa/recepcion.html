@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block  Titulo %} Recepcion {% endblock %}
+
+{% block  Contenido %} 
+<div class="container py-4">
+    <header class="pb-3 mb-4 border-bottom">
+        <h1>Buffer</h1>
+    </header>
+
+    <div class="row align-items-md-stretch">
+        <div class="col-md-6">
+            <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+              <h2>Descargar Buffer</h2>
+              <p>Descarga el archivo que esta en el Buffer</p>
+  
+              <a href="{% url 'recepcion_descarga' %}" class="btn btn-outline-success btn-sm px-4">Descargar</a>
+            </div>
+        </div>
+        
+      <div class="col-md-6">
+        <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+          <h2>Limpiar Buffer</h2>
+          <p> Eliminara lo que este en el Buffer asi que tencuidado cuando lo uses.</p>
+          <a href="{% url 'recepcion_borrado' %}" class="btn btn-outline-danger btn-sm px-4">Borrar buffer</a>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+{% endblock %}

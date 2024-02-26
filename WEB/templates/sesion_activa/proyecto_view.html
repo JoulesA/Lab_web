@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% block  Titulo %} Muestras {% endblock %}
+
+{% block  Contenido %} 
+<div class="container mt-5">
+  <div class="row">
+    <!-- Primera Sección -->
+    <div class="col-md-4 mb-4">
+      <div class="text-center">
+        <h2>{{proyecto.nombre}}</h2>
+        <p>{{proyecto.descripcion}}</p>
+      </div>
+      <h4>Datos tecnicos</h4>
+      <p>Tipo de señal: {{proyecto.signalType}}</p>
+      <p>Frecuencia de muestreo: {{proyecto.sampleRate}} Hz</p>
+      <p>Ganancia: {{proyecto.ganancia}}</p>
+      <p>Duración de cada grabación: {{proyecto.time}} s</p>
+      <br>
+      {% if proyecto.complete%}
+        <p>Publicado</p>
+      {% else %}
+        <p>Aún sin publicar</p>
+      {% endif %}
+
+      <div class="text-center">
+        <button type="button" class="btn btn-outline-warning">Editar proyecto</button>
+      </div>
+    </div>
+
+    <!-- Clases -->
+    <div class="col-md-4 mb-4">
+      
+      <div class="scrollable-section">
+        <h4>Clases</h4>
+        {% for prueba in pruebas %}
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">
+              <a href="{% url 'VerProyecto' proyecto.id prueba.id %}" role="button">
+                {{prueba.nombre}}
+              </a>
+            </h5>
+            <p>{{prueba.descripcion}}</p>
+            <button type="button" class="btn btn-secondary">Editar</button>
+            <button type="button" class="btn btn-danger">Borrar</button>
+          </div>
+        </div>
+        {% endfor %}    
+
+        <!-- Botón añadir -->
+        <div class="text-center">
+          <br>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#formularioModal">
+            Añadir clase
+          </button>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="formularioModal" tabindex="-1" aria-labelledby="formularioModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="formularioModalLabel">Añadir clase</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                      <form method="post" action="" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <!-- Campo Nombre -->
+                        <div class="mb-3">
+                            <label for="id_nombre" class="form-label">Nombre de la clase o prueba</label>
+                            <input type="text" class="form-control" id="id_nombre" name="nombre" required>
+                        </div>
+                
+                        <!-- Campo Descripción -->
+                        <div class="mb-3">
+                            <label for="id_descripcion" class="form-label">Descripción</label>
+                            <textarea class="form-control" id="id_descripcion" name="descripcion" rows="3" required></textarea>
+                        </div>
+                
+                        <!-- Campo Completo -->
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="id_complete" name="complete">
+                            <label class="form-check-label" for="id_complete">Completo</label>
+                        </div>
+                
+                        <!-- Campo Archivo RAR -->
+                        <div class="mb-3">
+                            <label for="id_rarFile" class="form-label">Archivo RAR</label>
+                            <input type="file" class="form-control" id="id_rarFile" name="rarFile">
+                        </div>
+                
+                        <!-- Campo Proyecto -->
+                        <div class="mb-3">
+                            <label for="id_proyecto" class="form-label">Proyecto</label>
+                            <select class="form-select" id="id_proyecto" name="proyecto" required>
+                                <option value={{proyecto.id}}>{{proyecto.nombre}}</option>
+                            </select>
+                        </div>
+                
+                        <!-- Campo Voluntarios -->
+                        <div class="mb-3">
+                            <label for="id_voluntarios" class="form-label">Voluntarios</label>
+                            <select multiple class="form-select" id="id_voluntarios" name="voluntarios" required>
+                                <!-- Opciones para los voluntarios, puedes obtenerlas desde tu base de datos -->
+                            </select>
+                        </div>
+                
+                        <button type="submit" class="btn btn-primary">Crear clase</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Agrega más elementos según sea necesario -->
+      </div>
+    </div>
+
+    <!-- Repeticiones -->
+    <div class="col-md-4 mb-4">
+      <h4>Registros de la clase </h4>
+      <div class="scrollable-section">
+        {% for muestra in muestras %}
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Registro {{muestra.id}}</h5>
+            <p>Voluntario: {{muestra.voluntario}}</p>
+            <p>Fecha de toma: {{muestra.fecha}}</p>
+            <button type="button" class="btn btn-secondary">Editar</button>
+            <button type="button" class="btn btn-danger">Borrar</button>
+          </div>
+        </div>
+        {% endfor %}
+        
+        
+        <!-- Botón añadir -->
+        <div class="text-center">
+          <br>
+          <button type="button" class="btn btn-primary btn-block">Añadir repetición</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+{% endblock %}

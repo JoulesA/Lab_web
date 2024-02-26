@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block  Titulo %} Procesamiento de Señales {% endblock %}
+
+{% block  Contenido %} 
+<div class="px-4 py-5 my-5 text-center">
+    <img class="d-block mx-auto mb-4" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+    <h1 class="display-5 fw-bold text-body-emphasis">{{proyecto.nombre}}</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4"> {{proyecto.descripcion}} </p>
+    </div>
+  </div>
+  <main class="container">
+    <div class="my-3 p-3 bg-body rounded shadow-sm">
+      <h6 class="border-bottom pb-2 mb-0">
+        <a href="{% url 'ProyectosAuth' %}">Proyectos </a>
+        /Pruebas
+        <a href="{% url 'NewProyecto' %}" class="btn btn-outline-success btn-sm px-4">Añadir Prueba</a>
+      </h6>
+      
+      {% for prueba in pruebas %}
+      <div class="d-flex text-body-secondary pt-3 cen">
+        <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"></rect><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+        <p class="pb-3 mb-0 small lh-sm border-bottom">
+          <strong class="d-block text-gray-dark">{{prueba.nombre}}</strong>
+          {{prueba.descripcion}}
+          <br>
+          {% if prueba.complete == True %}
+          <strong class="text-gray-dark">Estado: Completado</strong>
+          {% else %}
+          <strong class="text-gray-dark">Estado: En progreso</strong>
+          {% endif %}
+          <br>
+          <a class="btn btn-outline-warning btn-sm">
+          Editar información
+          </a>
+          <a class="btn btn-outline-secondary btn-sm " href="{% url 'Muestras' proyecto.id prueba.id %}" role="button">
+            <i class="far fa-file"></i> Ver datos
+          </a>
+          <a class="btn btn-outline-danger btn-sm ">
+            <i class="far fa-file"></i> Eliminar prueba
+          </a>
+        </p>
+
+      </div>
+      {% endfor %}
+
+    </div>
+  </main>
+{% endblock %}

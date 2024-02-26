@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block  Titulo %} Procesamiento de Señales {% endblock %}
+
+{% block  Contenido %} 
+
+<div class="px-4 py-5 my-5 text-center">
+    <h1 class="display-5 fw-bold text-body-emphasis">Proyectos</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4"> 
+        Consulta todos los proyectos que hemos desarrollado en el laboratorio  
+      </p>
+    </div>
+</div>
+
+<div class="container mt-5">
+  <div class="row">
+    {% for proyecto in proyectos%}
+    <!-- Tarjeta -->
+    <div class="col-md-4 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">
+            <a href="{% url 'Vista' proyecto.id %}" role="button"> {{proyecto.nombre}}</a>
+          </h5>
+          <p>Tipo de señal: {{proyecto.signalType }}</p>
+          <p>Investigador a cargo: {{proyecto.autor}}</p>
+          <p class="card-text">
+            <a class="btn btn-outline-warning btn-sm">
+              Descargar RAR
+            </a>
+
+          </p>
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+    
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block  Titulo %} Procesamiento de Señales {% endblock %}
+
+{% block  Contenido %} 
+<div class="container mt-5">
+    <main>
+
+        <section class="py-5 text-center container">
+          <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+              <h1 class="fw-light">Miembros del laboratorio</h1>
+              <p class="lead text-body-secondary">Conoce a nuestro equipo de investigadores </p>
+            </div>
+          </div>
+
+        </section>
+
+        <div class="album py-5 bg-body-tertiary">
+          <div class="container">
+    
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+            {% for miembro in miembros %}
+               <div class="col">
+                <div class="card shadow-sm">
+                  <img src="{{miembro.foto.url}}" class="card-img-top" width="100" height="255" alt="">
+                  <div class="card-body">
+                    <p class="card-text">
+                      <h4>
+                        {{miembro.nombre}}
+                        {{miembro.apellido}}
+                      </h4>
+                      {{miembro.bio}}
+                      <br> 
+                      {{miembro.correo}} 
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Ver proyectos</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+
+              
+      
+      </main>
+{% endblock %}

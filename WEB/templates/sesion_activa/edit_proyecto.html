@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block  Titulo %} Nuevo Proyecto {% endblock %}
+
+{% block  Contenido %} 
+<div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+  <h1 class="display-4 fw-normal">Nuevo Proyecto</h1>
+  <div class="d-flex flex-wrap align-items-center justify-content-center ">
+  </div>
+</div>
+
+<!-- Form-->
+
+<div class="container mt-5">
+  <form method="post" action="">
+      {% csrf_token %}
+    <h4>Generalidades</h4>
+
+      <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre del Proyecto</label>
+          <input type="text" class="form-control" id="nombre" name="nombre" required>
+      </div>
+      <div class="mb-3">
+          <label for="descripcion" class="form-label">Descripción del Proyecto (Abstract)</label>
+          <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
+      </div>
+    <h4>Datos tecnicos</h4>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="sampleRate" class="form-label">Frecuencia de muestreo (Hz)</label>
+            <input type="number" step="any" class="form-control" id="sampleRate" name="sampleRate" required>
+          </div>
+          <div class="mb-3">
+            <label for="ganancia" class="form-label">Ganancia</label>
+            <input type="number" class="form-control" id="ganancia" name="ganancia" required>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="time" class="form-label">Tiempo (seg)</label>
+            <input type="number" step="any" class="form-control" id="time" name="time" required>
+        </div>
+        <div class="mb-3">
+            <label for="signalType" class="form-label">Tipo de señal</label>
+            <select class="form-select" id="signalType" name="signalType" required>
+              {% for campo in campos %}  
+              <option value={{campo.id}}>{{campo.nombre}}</option>
+              {% endfor %}
+            </select>
+        </div>
+        </div>
+      </div>
+      
+    <h4>Detalles finales <span class="text-body-secondary">(Opcional)</span></h4>
+      <div class="form-check mb-3">
+          <input class="form-check-input" type="checkbox" id="complete" name="complete">
+          <label class="form-check-label" for="complete">Proyecto Finalizado</label>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="rarFile" class="form-label">Archivo RAR</label>
+            <input type="file" class="form-control" id="rarFile" name="rarFile">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="article" class="form-label">Artículo PDF</label>
+            <input type="file" class="form-control" id="article" name="article">
+          </div>
+        </div>
+      </div>
+      
+      
+      <a href="{% url 'inicio' %}" class="btn btn-outline-danger btn-sm px-4">Cancelar</a>
+      <button class="btn btn-outline-success px-4 btn-sm d-inline-flex" type="submit">Guardar</button>
+
+  </form>
+</div>
+
+{% endblock %}

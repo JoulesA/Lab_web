@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block  Titulo %} {% endblock %}</title>
+        {% load static %}
+        <!-- Bootstrap CSS v5.2.1 -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+        
+        <link rel="stylesheet" href="{% static 'style.css'%}" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    </head>
+  <body>
+
+    <header class="p-3 text-bg-dark">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+        </a>
+      {% if request.user.is_authenticated  %}
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="{% url 'inicio' %}" class="nav-link px-2 text-secondary">Inicio</a></li>
+          <li><a href="{% url 'voluntarios' %}" class="nav-link px-2 text-white">Voluntarios</a></li>
+          <li><a href="{% url 'recepcion' %}" class="nav-link px-2 text-white">Buffer</a></li>
+        
+        </ul>
+
+        <div class="text-end">
+          <a href="{% url 'exit' %}" class="btn btn-outline-secondary btn-sm px-4">Logout</a>
+        </div>
+      {% else %}
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="{% url 'inicio' %}" class="nav-link px-2 text-secondary">Inicio</a></li>
+          <li><a href="{% url 'miembros' %}" class="nav-link px-2 text-white">Miembros</a></li>
+          <li><a href="{% url 'proyectos' %}" class="nav-link px-2 text-white">Proyectos</a></li>
+        </ul>
+
+
+        <div class="text-end">
+          <a href="{% url 'login' %}" class="btn btn-outline-warning btn-sm px-4">Login</a>
+        </div>
+      {% endif %}
+      </div>
+    </div>
+    </header>
+    {% block Contenido %}
+    {% endblock %}
+
+      {% if request.user.is_authenticated  %}
+      <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+          <div class="col-md-4 d-flex align-items-center">
+            <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+              <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+            </a>
+            <span class="mb-3 mb-md-0 text-body-secondary">© 2023 Laboratorio de Procesamiento Digital de Señales</span>
+          </div>
+        </footer>
+      </div>
+      {% else %}
+      <div class="container">
+        <footer class="py-3 my-4">
+          <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item"><a href="{% url 'inicio' %}" class="nav-link px-2 text-body-secondary">Inicio</a></li>
+            <li class="nav-item"><a href="{% url 'miembros' %}" class="nav-link px-2 text-body-secondary">Miembros</a></li>
+            <li class="nav-item"><a href="{% url 'proyectos' %}" class="nav-link px-2 text-body-secondary">Proyectos</a></li>
+          </ul>
+          <p class="text-center text-body-secondary">© 2023 
+            <a class="d-inline-flex align-items-center mb-2 text-body-emphasis text-decoration-none" href="/" aria-label="Bootstrap">
+              <span class="fs-5">Laboratorio de Procesamiento Digital de Señales</span>
+            </a>
+          </p>
+        </footer>
+      </div>
+      {% endif %}
+
+  
+    
+  </body>
+
+  </html>

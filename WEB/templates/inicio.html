@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block  Titulo %} Procesamiento de Señales {% endblock %}
+
+{% block  Contenido %} 
+<div class="container mt-5">
+  {% if request.user.is_authenticated  %}
+  <h1>Bienvenido {{perfil.nombre}}</h1>
+  <p>Bienvenido al gestor de proyectos, continua el respaldo de tu base de datos o presiona el botón para generar un nuevo proyecto.</p>
+  <a href="{% url 'NewProyecto' %}" class="btn btn-outline-success btn-sm px-4">Nuevo Proyecto</a>
+
+  <div class="container mt-5">
+    <div class="row">
+      {% for proyecto in proyectos%}
+        <!-- Tarjeta -->
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">
+                <a href="{% url 'VerProyecto' proyecto.id 'w' %}" role="button">
+                  {{proyecto.nombre}}
+                </a>
+              </h5>
+              {% if proyecto.complete == True %}
+              <strong class="text-gray-dark">Estado: Completado</strong>
+              {% else %}
+              <strong class="text-gray-dark">Estado: En progreso</strong>
+              {% endif %}
+              <p>{{proyecto.signalType }}</p>
+    
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% else %}
+    <!-- Hero Section -->
+    <section class="hero text-center">
+      <h1>Laboratorio de Señales Digitales</h1>
+    </section>
+
+    <!-- Sección de Qué son las Señales Digitales y sus Aplicaciones -->
+    <section class="container mt-5">
+      <div class="row">
+          <div class="col-md-6">
+              <h2>¿Qué son las Señales Digitales?</h2>
+              <p>Las señales digitales son representaciones discretas de información. 
+                En el contexto de las señales digitales, la información se codifica en forma de bits, 
+                utilizando valores discretos como 0 y 1.</p>
+          </div>
+          <div class="col-md-6">
+              <h2>Aplicaciones de las Señales Digitales</h2>
+              <p>Las señales digitales son fundamentales en áreas como la comunicación, 
+                procesamiento de imágenes, procesamiento de audio, sistemas de control, 
+                y más. Permiten la manipulación y transmisión eficiente de información en el 
+                entorno digital.</p>
+          </div>
+      </div>
+    </section>
+
+    <!-- Sección de Información del Laboratorio -->
+    <section class="container mt-5">
+      <h2>Laboratorio del Centro de Investigaciones en Cómputo del IPN</h2>
+      <p>El Laboratorio de Señales Digitales forma parte de las instalaciones del Centro de 
+        Investigación en Cómputo (CIC) del Instituto Politécnico Nacional (IPN). 
+        El CIC es un centro de investigación dedicado a la generación de conocimiento en el área 
+        de la computación y tecnologías afines.</p>
+    </section>
+
+  {% endif %}
+</div>
+{% endblock %}
